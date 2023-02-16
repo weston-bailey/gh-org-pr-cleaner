@@ -14,5 +14,6 @@ def main():
     pr_bot = PullCloser(GH_TOKEN, ORG)
     pr_bot.run()
 
+
 if __name__ == "__main__":
     main()

@@ -6,7 +6,7 @@ Tool to automate the process of closing all of the open pull requests on a gh or
 
 * run `python3 -m venv venv` to create a virtual enviroment
 * run  `. ./venv/bin/activate` to enter the virutal enviroment
-* run `pip3 -r requirements.txt` to install the required packages
+* run `pip3 install -r requirements.txt` to install the required packages
 * `touch .env`, add a [classic github token](https://github.com/settings/tokens/new) with all auth scopes to the `.env` file like so:
 ```sh
 GH_TOKEN=< your github token >

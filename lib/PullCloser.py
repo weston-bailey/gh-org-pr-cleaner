@@ -13,7 +13,7 @@ class PullCloser:
         self.__token = token
         self.__org = org
         self.__repos = []
-        self.__data = json.dumps({  "state": "closed" })
+        self.__data = json.dumps({"state": "closed"})
         self.__headers = {
             "Authorization": f"token {self.__token}",
             "Accept": "application/vnd.github+json"
@@ -21,7 +21,8 @@ class PullCloser:
 
     def __get_repos(self):
         """builds a list of all repos in the org"""
-        get_url = lambda page : f"https://api.github.com/orgs/WDI-SEA/repos?per_page=100&page={page}"
+        def get_url(
+            page): return f"https://api.github.com/orgs/WDI-SEA/repos?per_page=100&page={page}"
 
         page = 1
         while True:
@@ -41,12 +42,15 @@ class PullCloser:
         """iterate all repos and close all open prs"""
 
         for i, repo in enumerate(self.__repos):
-            print(f"Closing pull requests on {repo['name']}, repo {i + 1} of {len(self.__repos)}") 
-            response = requests.get(f"https://api.github.com/repos/WDI-SEA/{repo['name']}/pulls?per_page=100", headers=self.__headers)
+            print(
+                f"Closing pull requests on {repo['name']}, repo {i + 1} of {len(self.__repos)}")
+            response = requests.get(
+                f"https://api.github.com/repos/WDI-SEA/{repo['name']}/pulls?per_page=100", headers=self.__headers)
             pulls = response.json()
             for pull in pulls:
                 print(f"\tClosing pulls for {pull['url']}")
-                pull_response = requests.patch(pull['url'], headers=self.__headers, data=self.__data)
+                pull_response = requests.patch(
+                    pull['url'], headers=self.__headers, data=self.__data)
 
         return self
 
@@ -55,4 +59,3 @@ class PullCloser:
         self.__get_repos().__close_pulls()
 
         return self
-
