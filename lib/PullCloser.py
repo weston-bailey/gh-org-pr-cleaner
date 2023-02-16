@@ -21,12 +21,11 @@ class PullCloser:
 
     def __get_repos(self):
         """builds a list of all repos in the org"""
-        def get_url(
-            page): return f"https://api.github.com/orgs/WDI-SEA/repos?per_page=100&page={page}"
 
         page = 1
         while True:
-            response = requests.get(get_url(page), headers=self.__headers)
+            response = requests.get(
+                f"https://api.github.com/orgs/WDI-SEA/repos?per_page=100&page={page}", headers=self.__headers)
             print(f"fetching page {page} of repos")
             response_json = response.json()
             if len(response_json) == 0:
